@@ -1,0 +1,18 @@
+package NetCode.Messages;
+
+import NetCode.IncommingMessage;
+
+import java.io.DataInputStream;
+import java.io.IOException;
+
+public class MSG_IN_CONNECTION implements IncommingMessage {
+    @Override
+    public short getID() {
+        return 1001;
+    }
+
+    @Override
+    public void read(DataInputStream dis) throws IOException {
+
+    }
+}
