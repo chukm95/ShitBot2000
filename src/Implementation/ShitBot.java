@@ -1,6 +1,7 @@
 package Implementation;
 
 import Behaviors.Behavior;
+import Behaviors.IdleBehavior;
 import TI.BoeBot;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class ShitBot {
 
         //initialize all componets
 
-
+        //set starting behavior
+        SwitchStates(new IdleBehavior());
     }
 
     private void BoeBotLoop(){
@@ -56,9 +58,9 @@ public class ShitBot {
     }
 
     public void SwitchStates(Behavior behavior){
-        //behavior must be something
+        //behavior cannot be null
         if(behavior == null)
-            //if not return
+            //if it is
             return;
 
         //check if current behavior exists
