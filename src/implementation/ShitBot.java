@@ -2,7 +2,7 @@ package implementation;
 
 import TI.BoeBot;
 import behaviors.Behavior;
-import behaviors.TestBehavior;
+import behaviors.LineFollowBehavior;
 import hardware.Ultrasoon;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class ShitBot {
         componentList.add(new Linefollowers(2,0,1));
         componentList.add(new Motors(15,14));
         //set starting behavior
-        SwitchStates(new TestBehavior());
+        SwitchStates(new LineFollowBehavior());
     }
 
     private void BoeBotLoop(){
@@ -57,8 +57,9 @@ public class ShitBot {
             //Behavior
             currentBehavior.Update(deltaTime.getDeltaTime());
             //delay one microsecond
-            BoeBot.wait(1 );
-            System.out.println(deltaTime.getDeltaTime());
+            BoeBot.wait(0,1);
+            System.out.println(currentBehavior);
+
         }
     }
 
