@@ -27,7 +27,8 @@ public class ShitBot {
     private Behavior currentBehavior;
 
     private ShitBot(){
-        instance =this;
+        //set instance to prevent stackoverflow
+        instance = this;
         //initialize BoeBot
         Initialize();
         //boebot loop

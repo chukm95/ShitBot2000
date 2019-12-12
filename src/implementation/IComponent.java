@@ -5,7 +5,8 @@ public interface IComponent {
     public enum componentType{
         ULTRASOON,
         LINEFOLLOWERS,
-        MOTORS
+        MOTORS,
+        NETWORK
     }
 
     void update(double deltaTime);
