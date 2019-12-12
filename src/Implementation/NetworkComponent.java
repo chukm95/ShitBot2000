@@ -1,6 +1,4 @@
-package Implementation;
-
-import TI.BoeBot;
+package implementation;
 
 import java.net.ServerSocket;
 

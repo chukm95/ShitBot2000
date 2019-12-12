@@ -1,5 +1,4 @@
-import Implementation.ShitBot;
-import TI.BoeBot;
+import implementation.ShitBot;
 
 public class RobotMain {
 
