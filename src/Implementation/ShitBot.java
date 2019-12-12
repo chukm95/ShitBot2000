@@ -20,6 +20,8 @@ public class ShitBot {
 
     //all sensors and motors are stored here
     private ArrayList<IComponent> componentList;
+    //deltaTime
+    private DeltaTime deltaTime;
     //the current boebot behavior
     private Behavior currentBehavior;
 
@@ -34,6 +36,9 @@ public class ShitBot {
         //init component list
         componentList = new ArrayList<>();
 
+        //initialize delta time
+        deltaTime = new DeltaTime();
+
         //initialize all componets
 
         //set starting behavior
@@ -42,10 +47,12 @@ public class ShitBot {
 
     private void BoeBotLoop(){
         while(true){
+            //update deltatime
+            deltaTime.Update();
             //update all the sensors and motors
             UpdateComponents();
             //Behavior
-            currentBehavior.Update(0);
+            currentBehavior.Update(deltaTime.getDeltaTime());
             //delay one microsecond
             BoeBot.wait(0, 1);
         }
@@ -53,7 +60,7 @@ public class ShitBot {
 
     private void UpdateComponents(){
         for(IComponent component : componentList){
-            component.update(0);
+            component.update(deltaTime.getDeltaTime());
         }
     }
 
