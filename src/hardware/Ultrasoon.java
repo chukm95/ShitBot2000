@@ -23,7 +23,7 @@ public class Ultrasoon  implements IComponent {
         BoeBot.digitalWrite(triggerPin,true);
         BoeBot.wait(1);
         BoeBot.digitalWrite(triggerPin,false);
-        this.distance = BoeBot.pulseIn(echoPin,true,10000);
+        this.distance = BoeBot.pulseIn(echoPin,true,5000);
     }
 
     @Override

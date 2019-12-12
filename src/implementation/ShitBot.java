@@ -2,7 +2,9 @@ package implementation;
 
 import TI.BoeBot;
 import behaviors.Behavior;
-import behaviors.TestBehavior;
+import behaviors.IdleBehavior;
+import behaviors.LineFollowBehavior;
+import behaviors.TurnBehavior;
 import hardware.Ultrasoon;
 
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class ShitBot {
         BoeBotLoop();
     }
 
-    private void Initialize(){
+    private void Initialize() {
         //init component list
         componentList = new ArrayList<>();
         //initialize delta time
@@ -45,12 +47,29 @@ public class ShitBot {
         //initialize network component
         networkComponent = new NetworkComponent();
         //initialize all componets
-        componentList.add(new Ultrasoon(1,2));
-        componentList.add(new Linefollowers(2,0,1));
-        componentList.add(new Motors(15,14));
+        componentList.add(new Ultrasoon(1, 2));
+        componentList.add(new Linefollowers(2, 0, 1));
+        componentList.add(new Motors(15, 14));
         componentList.add(networkComponent);
         //set starting behavior
-        SwitchStates(new TestBehavior());
+        SwitchStates(
+                new LineFollowBehavior(
+                        new TurnBehavior(true,
+                                new LineFollowBehavior(
+                                        new TurnBehavior(true,
+                                                new LineFollowBehavior(
+                                                        new TurnBehavior(true,
+                                                                new LineFollowBehavior(
+                                                                        new TurnBehavior(false,
+                                                                                new LineFollowBehavior(
+                                                                                        new TurnBehavior(false,
+                                                                                                new LineFollowBehavior(
+                                                                                                        new TurnBehavior(false,
+                                                                                                                new LineFollowBehavior(new IdleBehavior()))
+                                                                                                ))
+                                                                                ))
+                                                                )
+                                                        )))))));
     }
 
     private void BoeBotLoop(){
@@ -64,7 +83,8 @@ public class ShitBot {
             //send ping every update
 
             //delay one microsecond
-            BoeBot.wait(1 );
+            BoeBot.wait(0,1);
+            System.out.println(currentBehavior);
         }
     }
 
