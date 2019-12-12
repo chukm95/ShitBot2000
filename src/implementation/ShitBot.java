@@ -41,6 +41,8 @@ public class ShitBot {
         deltaTime = new DeltaTime();
         //initialize all componets
         componentList.add(new Ultrasoon(1,2));
+        componentList.add(new Linefollowers(2,0,1));
+        componentList.add(new Motors(15,14));
         //set starting behavior
         SwitchStates(new TestBehavior());
     }
@@ -54,7 +56,7 @@ public class ShitBot {
             //Behavior
             currentBehavior.Update(deltaTime.getDeltaTime());
             //delay one microsecond
-            BoeBot.wait(0, 1);
+            BoeBot.wait(0, 100);
         }
     }
 
