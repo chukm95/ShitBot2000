@@ -79,4 +79,10 @@ public class NetworkComponent implements IComponent {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public componentType getType() {
+        return null;
+    }
+
 }
