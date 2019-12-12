@@ -27,6 +27,7 @@ public class ShitBot {
     private Behavior currentBehavior;
 
     private ShitBot(){
+        instance =this;
         //initialize BoeBot
         Initialize();
         //boebot loop
