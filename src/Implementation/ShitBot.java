@@ -80,5 +80,4 @@ public class ShitBot {
         currentBehavior.OnActivate();
     }
 
-
 }
