@@ -29,7 +29,7 @@ public class NetworkComponent implements IComponent {
     private Stack<IMessageIn> messageStack;
 
     //constructor only tries to initialize the port
-    private NetworkComponent(){
+    public NetworkComponent(){
         try {
             //create a new socket
             serverSocket = new ServerSocket(PORT);
@@ -126,6 +126,10 @@ public class NetworkComponent implements IComponent {
 
     public IMessageIn pollMessage(){
         return messageStack.pop();
+    }
+
+    prote void sendPing(){
+
     }
 
     private void timeOut(){

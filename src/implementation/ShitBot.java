@@ -25,6 +25,8 @@ public class ShitBot {
     private DeltaTime deltaTime;
     //the current boebot behavior
     private Behavior currentBehavior;
+    //network component
+    private NetworkComponent networkComponent;
 
     private ShitBot(){
         //set instance to prevent stackoverflow
@@ -40,10 +42,13 @@ public class ShitBot {
         componentList = new ArrayList<>();
         //initialize delta time
         deltaTime = new DeltaTime();
+        //initialize network component
+        networkComponent = new NetworkComponent();
         //initialize all componets
         componentList.add(new Ultrasoon(1,2));
         componentList.add(new Linefollowers(2,0,1));
         componentList.add(new Motors(15,14));
+        componentList.add(networkComponent);
         //set starting behavior
         SwitchStates(new TestBehavior());
     }
@@ -56,9 +61,10 @@ public class ShitBot {
             UpdateComponents();
             //Behavior
             currentBehavior.Update(deltaTime.getDeltaTime());
+            //send ping every update
+
             //delay one microsecond
             BoeBot.wait(1 );
-            System.out.println(deltaTime.getDeltaTime());
         }
     }
 

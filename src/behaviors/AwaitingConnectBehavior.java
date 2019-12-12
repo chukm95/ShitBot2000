@@ -1,4 +1,4 @@
 package behaviors;
 
-public class AwaitingConnectBehavior {
+public class AwaitingConnectBehavior  {
 }
