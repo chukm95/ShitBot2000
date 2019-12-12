@@ -1,6 +1,4 @@
-package Behaviors;
-
-import Implementation.ShitBot;
+package behaviors;
 
 public class IdleBehavior extends Behavior {
 

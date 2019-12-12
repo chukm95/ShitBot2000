@@ -1,8 +1,9 @@
-package Implementation;
+package implementation;
 
-import Behaviors.Behavior;
-import Behaviors.IdleBehavior;
 import TI.BoeBot;
+import behaviors.Behavior;
+import behaviors.TestBehavior;
+import hardware.Ultrasoon;
 
 import java.util.ArrayList;
 
@@ -35,14 +36,12 @@ public class ShitBot {
     private void Initialize(){
         //init component list
         componentList = new ArrayList<>();
-
         //initialize delta time
         deltaTime = new DeltaTime();
-
         //initialize all componets
-
+        componentList.add(new Ultrasoon(1,2));
         //set starting behavior
-        SwitchStates(new IdleBehavior());
+        SwitchStates(new TestBehavior());
     }
 
     private void BoeBotLoop(){
@@ -78,6 +77,18 @@ public class ShitBot {
         currentBehavior = behavior;
         //activate current behavior
         currentBehavior.OnActivate();
+    }
+
+    public IComponent getComponent(IComponent.componentType type){
+        //gets all components from componentlist
+        for (IComponent component : componentList){
+            //check if component equals the type
+            if (component.getType() == type){
+                // returns the component that equals the type
+                return component;
+            }
+        }
+        return null;
     }
 
 }

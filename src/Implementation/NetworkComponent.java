@@ -1,6 +1,4 @@
-package Implementation;
-
-import TI.BoeBot;
+package implementation;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

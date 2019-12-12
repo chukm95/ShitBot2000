@@ -1,7 +1,6 @@
-package Behaviors;
+package behaviors;
 
-import Implementation.ShitBot;
-import TI.BoeBot;
+import implementation.ShitBot;
 
 public abstract class Behavior {
 
