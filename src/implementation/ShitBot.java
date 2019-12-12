@@ -57,7 +57,8 @@ public class ShitBot {
             //Behavior
             currentBehavior.Update(deltaTime.getDeltaTime());
             //delay one microsecond
-            BoeBot.wait(0, 100);
+            BoeBot.wait(1 );
+            System.out.println(deltaTime.getDeltaTime());
         }
     }
 

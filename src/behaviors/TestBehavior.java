@@ -29,9 +29,11 @@ public class TestBehavior extends Behavior{
 //        System.out.println(linefollowers.isDetectLineLeft());
 //        System.out.println(linefollowers.isDetectLineMid());
 //        System.out.println(linefollowers.isDetectLineRight());
-        motors.setSpeed(50,20);
-        System.out.println(motors.getCurrenspeedRight());
-        System.out.println(motors.getCurrentspeedleft());
+//        motors.setSpeed(50,20);
+//        System.out.println(motors.getCurrenspeedRight());
+//        System.out.println(motors.getCurrentspeedleft());
+
+
 
     }
 

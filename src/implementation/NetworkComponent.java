@@ -142,7 +142,7 @@ public class NetworkComponent implements IComponent {
             //set is connected to false
             isConnected = false;
             //add timeout message
-            messageStack.add(new TimeOut());
+            messageStack.add(new Msg_In_TimeOut());
         } catch (IOException e) {
             e.printStackTrace();
         }
