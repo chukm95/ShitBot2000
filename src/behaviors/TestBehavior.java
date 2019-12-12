@@ -12,7 +12,7 @@ public class TestBehavior extends Behavior{
     private Motors motors;
 
     public TestBehavior() {
-        super();
+        super(null);
         ultrasoon = (Ultrasoon) getShitBot().getComponent(IComponent.componentType.ULTRASOON);
         linefollowers = (Linefollowers) getShitBot().getComponent(IComponent.componentType.LINEFOLLOWERS);
         motors = (Motors) getShitBot().getComponent(IComponent.componentType.MOTORS);

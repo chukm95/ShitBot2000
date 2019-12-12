@@ -3,8 +3,6 @@ package implementation;
 import TI.BoeBot;
 import behaviors.Behavior;
 import behaviors.IdleBehavior;
-import behaviors.LineFollowBehavior;
-import behaviors.TurnBehavior;
 import hardware.Ultrasoon;
 
 import java.util.ArrayList;
@@ -52,24 +50,7 @@ public class ShitBot {
         componentList.add(new Motors(15, 14));
         componentList.add(networkComponent);
         //set starting behavior
-        SwitchStates(
-                new LineFollowBehavior(
-                        new TurnBehavior(true,
-                                new LineFollowBehavior(
-                                        new TurnBehavior(true,
-                                                new LineFollowBehavior(
-                                                        new TurnBehavior(true,
-                                                                new LineFollowBehavior(
-                                                                        new TurnBehavior(false,
-                                                                                new LineFollowBehavior(
-                                                                                        new TurnBehavior(false,
-                                                                                                new LineFollowBehavior(
-                                                                                                        new TurnBehavior(false,
-                                                                                                                new LineFollowBehavior(new IdleBehavior()))
-                                                                                                ))
-                                                                                ))
-                                                                )
-                                                        )))))));
+        SwitchStates(new IdleBehavior());
     }
 
     private void BoeBotLoop(){

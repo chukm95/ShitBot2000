@@ -128,9 +128,7 @@ public class NetworkComponent implements IComponent {
         return messageStack.pop();
     }
 
-    prote void sendPing(){
 
-    }
 
     private void timeOut(){
         try {
