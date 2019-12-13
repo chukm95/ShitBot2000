@@ -1,22 +1,69 @@
 package behaviors;
 
-import implementation.ShitBot;
+import hardware.Motor;
+import hardware.Ultrasoon;
+import implementation.*;
+
+import java.beans.beancontext.BeanContext;
 
 public abstract class Behavior {
 
     //the controlls
     private ShitBot shitBot;
-    protected Behavior nextBehavior;
+    private Ultrasoon ultrasoon;
+    private Linefollowers linefollowers;
+    private Motors motors;
+    private NetworkComponent networkComponent;
+    private Behavior nextBehavior;
 
-    //the constructor
-    protected Behavior(Behavior nextBehavior){
-        shitBot = ShitBot.getInstance();
+
+    //the constructors
+    protected  Behavior(Behavior nextBehavior){
+        Initialize();
         this.nextBehavior = nextBehavior;
+    }
+
+    protected Behavior(){
+        Initialize();
+        nextBehavior = new IdleBehavior();
+    }
+
+    private void Initialize(){
+        shitBot = ShitBot.getInstance();
+        ultrasoon = (Ultrasoon) shitBot.getComponent(IComponent.componentType.ULTRASOON);
+        linefollowers = (Linefollowers) shitBot.getComponent(IComponent.componentType.LINEFOLLOWERS);
+        motors = (Motors) shitBot.getComponent(IComponent.componentType.MOTORS);
+        networkComponent = (NetworkComponent) shitBot.getComponent(IComponent.componentType.NETWORK);
     }
 
     public abstract void OnActivate();
     public abstract void Update(double deltaTime);
     public abstract void OnDeactivate();
+
+    public Behavior setNextBehavior(Behavior nextBehavior){
+        this.nextBehavior = nextBehavior;
+        return nextBehavior;
+    }
+
+    protected void switchToNextBehavior(){
+        shitBot.SwitchStates(nextBehavior);
+    }
+
+    protected Linefollowers getLinefollowers(){
+        return linefollowers;
+    }
+
+    protected Motors getMotors(){
+        return motors;
+    }
+
+    protected NetworkComponent getNetworkComponent(){
+        return networkComponent;
+    }
+
+    protected Ultrasoon getUltrasoon(){
+        return ultrasoon;
+    }
 
     protected ShitBot getShitBot(){
         return shitBot;
