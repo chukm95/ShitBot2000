@@ -49,20 +49,25 @@ public class ShitBot {
         componentList.add(new Linefollowers(2, 0, 1));
         componentList.add(new Motors(15, 14));
         componentList.add(networkComponent);
+        System.out.println("check 1");
         //set starting behavior
         SwitchStates(new IdleBehavior());
+        System.out.println("check 2");
     }
 
     private void BoeBotLoop(){
         while(true){
+            System.out.println("check 3");
             //update deltatime
             deltaTime.Update();
+            System.out.println("check 4");
             //update all the sensors and motors
             UpdateComponents();
+            System.out.println("check 5");
             //Behavior
             currentBehavior.Update(deltaTime.getDeltaTime());
             //send ping every update
-
+            System.out.println("check 6");
             //delay one microsecond
             BoeBot.wait(0,1);
             System.out.println(currentBehavior);
