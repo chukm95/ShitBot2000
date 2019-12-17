@@ -1,10 +1,7 @@
 package behaviors;
 
-import hardware.Motor;
 import hardware.Ultrasoon;
 import implementation.*;
-
-import java.beans.beancontext.BeanContext;
 
 public abstract class Behavior {
 
@@ -25,7 +22,7 @@ public abstract class Behavior {
 
     protected Behavior(){
         Initialize();
-        nextBehavior = new IdleBehavior();
+        nextBehavior = null;
     }
 
     private void Initialize(){
@@ -46,7 +43,11 @@ public abstract class Behavior {
     }
 
     protected void switchToNextBehavior(){
+        if (nextBehavior == null){
+            nextBehavior = new IdleBehavior();
+        }
         shitBot.SwitchStates(nextBehavior);
+
     }
 
     protected Linefollowers getLinefollowers(){

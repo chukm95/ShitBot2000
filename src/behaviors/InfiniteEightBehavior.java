@@ -1,7 +1,5 @@
 package behaviors;
 
-import javax.sound.sampled.Line;
-
 public class InfiniteEightBehavior extends Behavior {
 
     public InfiniteEightBehavior(){
@@ -24,6 +22,7 @@ public class InfiniteEightBehavior extends Behavior {
                 .setNextBehavior(new LineFollowBehavior())
                 .setNextBehavior(new TurnRightBehavior())
                 .setNextBehavior(new LineFollowBehavior())
+                .setNextBehavior(new TurnLeftBehavior())
                 .setNextBehavior(new InfiniteEightBehavior());
         switchToNextBehavior();
     }
