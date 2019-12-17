@@ -1,6 +1,7 @@
 package implementation;
 
 import TI.BoeBot;
+import behaviors.AwaitingConnectBehavior;
 import behaviors.Behavior;
 import behaviors.InfiniteEightBehavior;
 import hardware.Ultrasoon;
@@ -50,7 +51,7 @@ public class ShitBot {
         componentList.add(new Motors(15, 14));
         componentList.add(networkComponent);
         //set starting behavior
-        SwitchStates(new InfiniteEightBehavior());
+        SwitchStates(new AwaitingConnectBehavior());
     }
 
     private void BoeBotLoop(){
@@ -62,9 +63,9 @@ public class ShitBot {
             //Behavior
             currentBehavior.Update(deltaTime.getDeltaTime());
             //send ping every update
+            networkComponent.sendPing();
             //delay one microsecond
             BoeBot.wait(0,1);
-            System.out.println(currentBehavior);
         }
     }
 

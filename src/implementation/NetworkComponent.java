@@ -125,10 +125,19 @@ public class NetworkComponent implements IComponent {
     }
 
     public IMessageIn pollMessage(){
-        return messageStack.pop();
+        if(!messageStack.empty())
+            return messageStack.pop();
+        return null;
     }
 
-
+    public void sendPing(){
+        try {
+            if(isConnected)
+                outputStream.writeShort(0); //0 is ping id
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void timeOut(){
         try {

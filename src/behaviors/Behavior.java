@@ -2,6 +2,7 @@ package behaviors;
 
 import hardware.Ultrasoon;
 import implementation.*;
+import implementation.messages.*;
 
 public abstract class Behavior {
 
@@ -49,6 +50,30 @@ public abstract class Behavior {
         shitBot.SwitchStates(nextBehavior);
 
     }
+
+    public void pollForMessages(){
+        for(IMessageIn msg = getNetworkComponent().pollMessage(); msg != null; msg = getNetworkComponent().pollMessage()){
+            switch (msg.getType()){
+                case CONNECT:
+                    onConnectMessage((Msg_In_Connect) msg);
+                    break;
+                case DISCONNECT:
+                    onDisconnectMessage((Msg_In_Disconnect) msg);
+                    break;
+                case TIMEOUT:
+                    onTimeOut((Msg_In_TimeOut) msg);
+                    break;
+                case SENSOR_DATA_REQUEST:
+                    onSensorDataRequest((Msg_In_SensorDataRequest) msg);
+                    break;
+            }
+        }
+    }
+
+    protected void onConnectMessage(Msg_In_Connect msg_connect){}
+    protected void onDisconnectMessage(Msg_In_Disconnect msg_in_disconnect){}
+    protected void onTimeOut(Msg_In_TimeOut msg_timeout){}
+    protected void onSensorDataRequest(Msg_In_SensorDataRequest msg_sensorDataRequest){}
 
     protected Linefollowers getLinefollowers(){
         return linefollowers;
