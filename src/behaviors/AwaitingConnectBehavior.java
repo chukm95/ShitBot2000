@@ -1,8 +1,5 @@
 package behaviors;
 
-import implementation.messages.IMessageIn;
-import implementation.messages.Msg_In_Connect;
-
 public class AwaitingConnectBehavior extends Behavior {
 
     public AwaitingConnectBehavior(){
@@ -16,13 +13,12 @@ public class AwaitingConnectBehavior extends Behavior {
 
     @Override
     public void Update(double deltaTime) {
-
-    }
-
-    @Override
-    protected void onConnectMessage(Msg_In_Connect msg_connect) {
-        switchToNextBehavior();
-        super.onConnectMessage(msg_connect);
+        if(!getNetworkComponent().isConnected()){
+            getNetworkComponent().listenForConnection();
+        }else{
+            System.out.println("connected!");
+            switchToNextBehavior();
+        }
     }
 
     @Override

@@ -3,8 +3,8 @@ package implementation;
 import TI.BoeBot;
 import behaviors.AwaitingConnectBehavior;
 import behaviors.Behavior;
-import behaviors.InfiniteEightBehavior;
 import hardware.Ultrasoon;
+import shittynetcode.ShittyNetServer;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class ShitBot {
     //the current boebot behavior
     private Behavior currentBehavior;
     //network component
-    private NetworkComponent networkComponent;
+
 
     private ShitBot(){
         //set instance to prevent stackoverflow
@@ -44,12 +44,12 @@ public class ShitBot {
         //initialize delta time
         deltaTime = new DeltaTime();
         //initialize network component
-        networkComponent = new NetworkComponent();
+
         //initialize all componets
         componentList.add(new Ultrasoon(1, 2));
         componentList.add(new Linefollowers(2, 0, 1));
         componentList.add(new Motors(15, 14));
-        componentList.add(networkComponent);
+        componentList.add(ShittyNetServer.getInstance());
         //set starting behavior
         SwitchStates(new AwaitingConnectBehavior());
     }
@@ -62,8 +62,6 @@ public class ShitBot {
             UpdateComponents();
             //Behavior
             currentBehavior.Update(deltaTime.getDeltaTime());
-            //send ping every update
-            networkComponent.sendPing();
             //delay one microsecond
             BoeBot.wait(0,1);
         }

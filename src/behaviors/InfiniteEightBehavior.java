@@ -23,7 +23,7 @@ public class InfiniteEightBehavior extends Behavior {
                 .setNextBehavior(new TurnRightBehavior())
                 .setNextBehavior(new LineFollowBehavior())
                 .setNextBehavior(new TurnLeftBehavior())
-                .setNextBehavior(new InfiniteEightBehavior());
+                .setNextBehavior(new IdleBehavior());
         switchToNextBehavior();
     }
 

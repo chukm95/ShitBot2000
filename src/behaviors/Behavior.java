@@ -1,8 +1,12 @@
 package behaviors;
 
 import hardware.Ultrasoon;
-import implementation.*;
-import implementation.messages.*;
+import implementation.IComponent;
+import implementation.Linefollowers;
+import implementation.Motors;
+import implementation.ShitBot;
+import shittynetcode.ShittyNetServer;
+import shittynetcode.messages.Message_in;
 
 public abstract class Behavior {
 
@@ -11,7 +15,7 @@ public abstract class Behavior {
     private Ultrasoon ultrasoon;
     private Linefollowers linefollowers;
     private Motors motors;
-    private NetworkComponent networkComponent;
+    private ShittyNetServer networkComponent;
     private Behavior nextBehavior;
 
 
@@ -31,7 +35,7 @@ public abstract class Behavior {
         ultrasoon = (Ultrasoon) shitBot.getComponent(IComponent.componentType.ULTRASOON);
         linefollowers = (Linefollowers) shitBot.getComponent(IComponent.componentType.LINEFOLLOWERS);
         motors = (Motors) shitBot.getComponent(IComponent.componentType.MOTORS);
-        networkComponent = (NetworkComponent) shitBot.getComponent(IComponent.componentType.NETWORK);
+        networkComponent = (ShittyNetServer) shitBot.getComponent(IComponent.componentType.NETWORK);
     }
 
     public abstract void OnActivate();
@@ -52,28 +56,41 @@ public abstract class Behavior {
     }
 
     public void pollForMessages(){
-        for(IMessageIn msg = getNetworkComponent().pollMessage(); msg != null; msg = getNetworkComponent().pollMessage()){
-            switch (msg.getType()){
-                case CONNECT:
-                    onConnectMessage((Msg_In_Connect) msg);
-                    break;
-                case DISCONNECT:
-                    onDisconnectMessage((Msg_In_Disconnect) msg);
-                    break;
+        for(Message_in msg : networkComponent.getMessagesIn()){
+            switch (msg.getMessageType()){
                 case TIMEOUT:
-                    onTimeOut((Msg_In_TimeOut) msg);
+                    onTimeout();
                     break;
-                case SENSOR_DATA_REQUEST:
-                    onSensorDataRequest((Msg_In_SensorDataRequest) msg);
+                case SENSORDATAREQUEST:
+                    onSensorDataRequest();
                     break;
+                case FORWARD:
+                    onForward();
+                    break;
+                case LEFT:
+                    onLeft();
+                    break;
+                case RIGHT:
+                    onRight();
+                    break;
+                case OneEighty:
+                    onOneEighty();
+                    break;
+                case INFINETEIGHT:
+                    onInfinetEight();
+                    break;
+
             }
         }
     }
 
-    protected void onConnectMessage(Msg_In_Connect msg_connect){}
-    protected void onDisconnectMessage(Msg_In_Disconnect msg_in_disconnect){}
-    protected void onTimeOut(Msg_In_TimeOut msg_timeout){}
-    protected void onSensorDataRequest(Msg_In_SensorDataRequest msg_sensorDataRequest){}
+    protected void onTimeout(){}
+    protected void onSensorDataRequest(){}
+    protected void onForward(){}
+    protected void onLeft(){}
+    protected void onRight(){}
+    protected void onOneEighty(){}
+    protected void onInfinetEight(){}
 
     protected Linefollowers getLinefollowers(){
         return linefollowers;
@@ -83,7 +100,7 @@ public abstract class Behavior {
         return motors;
     }
 
-    protected NetworkComponent getNetworkComponent(){
+    protected ShittyNetServer getNetworkComponent(){
         return networkComponent;
     }
 

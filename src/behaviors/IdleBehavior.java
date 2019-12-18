@@ -1,8 +1,7 @@
 package behaviors;
 
-import implementation.messages.Msg_In_SensorDataRequest;
-import implementation.messages.Msg_In_TimeOut;
-import implementation.messages.Msg_Out_SensorData;
+import shittynetcode.messages.Msg_Out_Complete;
+import shittynetcode.messages.Msg_Out_SensorData;
 
 public class IdleBehavior extends Behavior {
 
@@ -11,35 +10,56 @@ public class IdleBehavior extends Behavior {
 
     @Override
     public void OnActivate() {
-
+        getNetworkComponent().sendMessage(new Msg_Out_Complete());
+        getMotors().setSpeed(0);
     }
 
     @Override
     public void Update(double deltaTime) {
-
+        pollForMessages();
     }
 
     @Override
-    protected void onSensorDataRequest(Msg_In_SensorDataRequest msg_sensorDataRequest) {
-        Msg_Out_SensorData sensorData = new Msg_Out_SensorData(
-                getUltrasoon().getDistance(),
-                getMotors().getCurrentspeedleft(),
-                getMotors().getCurrenspeedRight(),
-                getLinefollowers().isDetectLineLeft(),
-                getLinefollowers().isDetectLineMid(),
-                getLinefollowers().isDetectLineRight()
-        );
-
-        getNetworkComponent().sendMessage(sensorData);
-
-        super.onSensorDataRequest(msg_sensorDataRequest);
-    }
-
-    @Override
-    protected void onTimeOut(Msg_In_TimeOut msg_timeout) {
+    protected void onTimeout() {
+        System.out.println("Client disconnected!");
         setNextBehavior(new AwaitingConnectBehavior());
         switchToNextBehavior();
-        super.onTimeOut(msg_timeout);
+    }
+
+    @Override
+    protected void onSensorDataRequest() {
+        Msg_Out_SensorData msgo = new Msg_Out_SensorData(getUltrasoon().getDistance(), getLinefollowers().isDetectLineLeft(), getLinefollowers().isDetectLineMid(), getLinefollowers().isDetectLineRight(), getMotors().getCurrentspeedleft(), getMotors().getCurrenspeedRight());
+        getNetworkComponent().sendMessage(msgo);
+    }
+
+    @Override
+    protected void onForward() {
+        setNextBehavior(new LineFollowBehavior());
+        switchToNextBehavior();
+    }
+
+    @Override
+    protected void onLeft() {
+        setNextBehavior(new TurnLeftBehavior());
+        switchToNextBehavior();
+    }
+
+    @Override
+    protected void onRight() {
+        setNextBehavior(new TurnRightBehavior());
+        switchToNextBehavior();
+    }
+
+    @Override
+    protected void onOneEighty() {
+        setNextBehavior(new TurnLeftBehavior()).setNextBehavior(new TurnLeftBehavior());
+        switchToNextBehavior();
+    }
+
+    @Override
+    protected void onInfinetEight() {
+        setNextBehavior(new InfiniteEightBehavior());
+        switchToNextBehavior();
     }
 
     @Override
