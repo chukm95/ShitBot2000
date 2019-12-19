@@ -52,7 +52,7 @@ public class IdleBehavior extends Behavior {
 
     @Override
     protected void onOneEighty() {
-        setNextBehavior(new TurnLeftBehavior()).setNextBehavior(new TurnLeftBehavior());
+        setNextBehavior(new Turn180DegreeBehavior());
         switchToNextBehavior();
     }
 

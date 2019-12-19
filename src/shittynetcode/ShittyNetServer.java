@@ -64,14 +64,14 @@ public class ShittyNetServer implements IComponent {
             //send ping
             sendPing(deltaTime);
             recieveMessages();
-            checkTimeout();
+            checkTimeout(deltaTime);
         }
     }
 
     private void sendPing(double deltaTime){
         lastPingSended += (int)(deltaTime * 1000.0);
         try {
-            if(lastPingSended > 1000) {
+            if(lastPingSended > 100) {
                 stream.writeShort((short) 0);
                 stream.flush();
                 lastPingSended = 0;
@@ -90,7 +90,7 @@ public class ShittyNetServer implements IComponent {
                         lastpingRecieved = 0;
                         break;
                     case 1://sensor data request
-//                        System.out.println("Sensordata requested");
+                        System.out.println("Sensordata requested");
                         Msg_In_SensorDataRequest msg = new Msg_In_SensorDataRequest();
                         msg.readMessage(dataInputStream);
                         messagesIn.add(msg);
@@ -134,8 +134,8 @@ public class ShittyNetServer implements IComponent {
         }
     }
 
-    private void checkTimeout(){
-        lastpingRecieved +=1;
+    private void checkTimeout(double deltatime){
+        lastpingRecieved += (int)(deltatime * 1000);
         if (lastpingRecieved > 5000){
             isConnected = false;
 
