@@ -3,7 +3,7 @@ package behaviors;
 
 public class LineFollowBehavior extends Behavior {
     private double time;
-    private final double rolloutTime = 0.05;
+    private final double rolloutTime = 0.15;
     private boolean isRollingOut;
 
 

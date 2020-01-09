@@ -11,6 +11,7 @@ public class IdleBehavior extends Behavior {
     @Override
     public void OnActivate() {
         getNetworkComponent().sendMessage(new Msg_Out_Complete());
+        System.out.println("complete");
         getMotors().setSpeed(0);
     }
 

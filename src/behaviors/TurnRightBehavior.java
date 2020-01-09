@@ -10,7 +10,7 @@ public class TurnRightBehavior extends Behavior {
 
     @Override
     public void OnActivate() {
-        getMotors().setSpeed(200,0);
+        getMotors().setSpeed(200,-200);
         time = 0;
     }
 

@@ -1,9 +1,5 @@
 package behaviors;
 
-import implementation.IComponent;
-import implementation.Linefollowers;
-import implementation.Motors;
-
 public class TurnLeftBehavior extends Behavior {
 
     private final double timeBeforeSensing = 0.2;
@@ -14,7 +10,7 @@ public class TurnLeftBehavior extends Behavior {
 
     @Override
     public void OnActivate() {
-        getMotors().setSpeed(0,200);
+        getMotors().setSpeed(-200,200);
         time = 0;
     }
 
